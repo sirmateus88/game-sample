@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+    background-color: black;
+}
+
+.root {
+    height: 100vh;
+}
+
+.eater {
+    background-color: red;
+    /* border-radius: 100%; */
+}
+
+.food {
+    background-color: white;
+    /* border-radius: 100%; */
+}
