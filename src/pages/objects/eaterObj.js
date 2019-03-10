@@ -9,30 +9,34 @@ function FoodObj (height, width, x = 0, y = 0, id = 0){
     this.eaten = false
 }
 
-foodObj.prototype.leftOverlap = function(eaterLeft){
+FoodObj.prototype.leftOverlap = function(eaterLeft){
     return (this.X < eaterLeft && this.rightEdge > eaterLeft) ? true : false;
 }
 
-foodObj.prototype.rightOverlap = function(eaterRight){
-    return (foodLeft < eaterRight && foodRight > eaterRight) ? true : false;
+FoodObj.prototype.rightOverlap = function(eaterRight){
+    return (this.X < eaterRight && this.rightEdge > eaterRight) ? true : false;
 }
 
-function bottomOverlap(foodTop, eaterBottom){
-    return (foodTop > eaterBottom && foodBottom < eaterBottom) ? true : false;
+FoodObj.prototype.bottomOverlap = function(eaterBottom){
+    return (this.Y > eaterBottom && this.bottomEdge < eaterBottom) ? true : false;
 }
 
-function topOverlap(foodBottom, eaterTop){
-    return (foodTop > eaterTop && foodBottom < eaterTop) ? true : false;
+FoodObj.prototype.topOverlap = function(eaterTop){
+    return (this.Y > eaterTop && this.bottomEdge < eaterTop) ? true : false;
 }
 
 
 FoodObj.prototype.checkIfCollided = function (currentEater){
-    console.log('checking if collided,', currentEater)
     let overlaps = {
-        left: leftOverlap(this.rightEdge, currentEater.left),
-        right: leftOverlap(this.rightEdge, currentEater.left),
-        top: leftOverlap(this.rightEdge, currentEater.left),
-        bottom: leftOverlap(this.rightEdge, currentEater.left),
+        left: this.leftOverlap(currentEater.left),
+        right: this.rightOverlap(currentEater.right),
+        top: this.topOverlap(currentEater.top),
+        bottom: this.bottomOverlap(currentEater.bottom),
+    }
+    console.log('checking if collided,', overlaps)
+
+    if ((overlaps.left || overlaps.right) && (overlaps.top || overlaps.bottom)){
+        this.eat()
     }
 
 }
