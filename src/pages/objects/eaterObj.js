@@ -35,7 +35,7 @@ FoodObj.prototype.checkIfCollided = function (currentEater){
     }
     console.log('checking if collided,', overlaps)
 
-    if ((overlaps.left || overlaps.right) && (overlaps.top || overlaps.bottom)){
+    if (overlaps.left || (overlaps.top && overlaps.bottom)){
         this.eat()
     }
 
